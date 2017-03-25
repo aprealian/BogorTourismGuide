@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android:background="@drawable/wisata2"
+    android:gravity="bottom"
+    android:layout_margin="14dp"
+    android:paddingBottom="@dimen/row_padding"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/row_padding">
+
+    <TextView
+        android:id="@+id/nameTextView"
+        style="@style/RowTitle"
+        android:text="Bogor Botanical Garden"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/circleView"
+        android:layout_toRightOf="@+id/circleView"
+        android:paddingLeft="@dimen/row_padding" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        style="@style/RowSubtitle"
+        android:text="Do not and then you will regret it?"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/titleTextView"
+        android:layout_alignStart="@+id/titleTextView"
+        android:layout_below="@+id/titleTextView"
+        android:paddingLeft="@dimen/row_padding" />
+
+</LinearLayout>
