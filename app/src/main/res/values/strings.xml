@@ -3,6 +3,8 @@
     <string name="page_route_depart">Select Depart Place</string>
     <string name="page_route_destination">Select Destination Place</string>
     <string name="str_cari">Search</string>
+    <string name="setting">Settings</string>
+    <string name="warn_gps_disabled">Your GPS disable</string>
     <!--<string name=""></string>
     <string name=""></string>
     <string name=""></string>

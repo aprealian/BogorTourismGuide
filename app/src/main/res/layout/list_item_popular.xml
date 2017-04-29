@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="280dp"
-    android:layout_height="150dp"
-    android:orientation="vertical"
-    android:background="@drawable/wisata2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_rounded_corner_white"
     android:gravity="bottom"
-    android:layout_margin="14dp"
-    android:paddingBottom="@dimen/row_padding"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding">
+    android:layout_margin="14dp">
 
-    <TextView
-        android:id="@+id/nameTextView"
-        style="@style/RowTitle"
-        android:text="Bogor Botanical Garden"
-        android:textColor="#FFFFFF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/circleView"
-        android:layout_toRightOf="@+id/circleView"
-        android:paddingLeft="@dimen/row_padding" />
+    <ImageView
+        android:id="@+id/wisataImageView"
+        android:src="@drawable/no_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
-    <TextView
-        android:id="@+id/descriptionTextView"
-        style="@style/RowSubtitle"
-        android:text="Do not and then you will regret it?"
-        android:textColor="#FFFFFF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/titleTextView"
-        android:layout_alignStart="@+id/titleTextView"
-        android:layout_below="@+id/titleTextView"
-        android:paddingLeft="@dimen/row_padding" />
+    <LinearLayout
+        android:layout_marginLeft="14dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/kategoriTextView"
+            android:text="Food"
+            android:padding="5dp"
+            android:background="@drawable/bg_rounded_corner_kategori"
+            android:textColor="@android:color/white"
+            android:layout_gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/namaTextView"
+            style="@style/RowTitle"
+            android:layout_gravity="left"
+            android:text="Bogor Botanical Garden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/alamatTextView"
+            style="@style/RowSubtitle"
+            android:layout_gravity="left"
+            android:text="Do not and then you will regret it?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 </LinearLayout>
