@@ -1,8 +1,7 @@
-package com.teknokrait.bogortourismguide.home;
+package com.teknokrait.bogortourismguide.view.home;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -17,13 +17,9 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.teknokrait.bogortourismguide.R;
-import com.teknokrait.bogortourismguide.data.Color;
-import com.teknokrait.bogortourismguide.data.Tourism;
 import com.teknokrait.bogortourismguide.data.Wisata;
-import com.teknokrait.bogortourismguide.data.WisataList;
-import com.teknokrait.bogortourismguide.dev.RecyclerViewOnItemClickListener;
+import com.teknokrait.bogortourismguide.view.dev.RecyclerViewOnItemClickListener;
 import com.teknokrait.bogortourismguide.helper.Helper;
-import com.teknokrait.bogortourismguide.test.MaterialPaletteAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +37,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
 
     public PopularAdapter(Context context, @NonNull RecyclerViewOnItemClickListener
                                           recyclerViewOnItemClickListener) {
-        //this.wisataList = wisataList;
         this.context = context;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
     }
@@ -58,9 +53,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         holder.getNamaTextView().setText(wisata.getNama());
         holder.getKategoriTextView().setText(wisata.getKategori());
         holder.getAlamatTextView().setText(wisata.getAlamat());
-
-
-
+        holder.getRateRatingBar().setNumStars((int)wisata.getRating());
+        holder.getRateTextView().setText(String.valueOf(wisata.getRating()));
+        loadImage(holder.getWisataImageView() ,position);
 
     }
 
@@ -87,7 +82,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
 
     public Wisata getItem(int i) {
         setSelectedPosition(i);
-        //GKLog.e("BRANDS " + brands.get(i));
         return wisataList.get(i);
     }
 
@@ -103,7 +97,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         this.wisataList.add(wisata);
     }
 
-    public void addBrands(List<Wisata> wisatas) {
+    public void addWisataList(List<Wisata> wisatas) {
         if (this.wisataList == null) {
             this.wisataList= new ArrayList<>();
         }
@@ -120,6 +114,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         private TextView namaTextView;
         private TextView kategoriTextView;
         private TextView alamatTextView;
+        private RatingBar rateRatingBar;
+        private TextView rateTextView;
 
 
         public PopularViewHolder(View itemView) {
@@ -128,20 +124,28 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
             namaTextView = (TextView) itemView.findViewById(R.id.namaTextView);
             kategoriTextView = (TextView) itemView.findViewById(R.id.kategoriTextView);
             alamatTextView = (TextView) itemView.findViewById(R.id.alamatTextView);
-            //loadImage(getAdapterPosition());
+            rateRatingBar = (RatingBar) itemView.findViewById(R.id.rateRatingBar);
+            rateTextView = (TextView) itemView.findViewById(R.id.rateTextView);
             itemView.setOnClickListener(this);
         }
 
         public TextView getNamaTextView() {
             return namaTextView;
         }
-
         public TextView getKategoriTextView() {
             return kategoriTextView;
         }
-
         public TextView getAlamatTextView() {
             return alamatTextView;
+        }
+        public ImageView getWisataImageView() {
+            return wisataImageView;
+        }
+        public TextView getRateTextView() {
+            return rateTextView;
+        }
+        public RatingBar getRateRatingBar() {
+            return rateRatingBar;
         }
 
 
@@ -150,44 +154,46 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
             recyclerViewOnItemClickListener.onClick(v, getAdapterPosition());
         }
 
-        public void loadImage(int position) {
-            ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
+    }
 
-            if (wisataList.get(position).getPhotos().size() > 0) {
 
-                if (TextUtils.isEmpty(wisataList.get(position).getPhotos().get(0))) {
-                    wisataImageView.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    ImageLoader.getInstance().loadImage(wisataList.get(position).getPhotos().get(0), Helper.getOption(), new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String imageUri, View view) {
+    public void loadImage(final ImageView wisataImageView, int position) {
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
 
-                        }
+        if (wisataList != null && wisataList.get(position).getPhotos() != null && !wisataList.get(position).getPhotos().isEmpty() && wisataList.get(position).getPhotos().size() > 0) {
 
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+            if (TextUtils.isEmpty(wisataList.get(position).getPhotos().get(0))) {
+                wisataImageView.setImageResource(R.mipmap.ic_launcher);
+            } else {
+                ImageLoader.getInstance().loadImage("http://mydummyproject.hol.es/get/photo/"+wisataList.get(position).getPhotos().get(0)+"/200", Helper.getOption(), new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            wisataImageView.setImageBitmap(loadedImage);
-                            //activity.getCache().put(imageUri, loadedImage);
-                        }
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
-                        @Override
-                        public void onLoadingCancelled(String imageUri, View view) {
+                    }
 
-                        }
-                    });
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        wisataImageView.setImageBitmap(loadedImage);
+                    }
 
-                    ImageLoader.getInstance().displayImage(wisataList.get(position).getPhotos().get(0), wisataImageView, Helper.getOption());
-                }
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
 
+                    }
+                });
+
+                ImageLoader.getInstance().displayImage("http://mydummyproject.hol.es/get/photo/"+wisataList.get(position).getPhotos().get(0)+"/200", wisataImageView, Helper.getOption());
             }
 
-
         }
+
+
     }
+
 
 }

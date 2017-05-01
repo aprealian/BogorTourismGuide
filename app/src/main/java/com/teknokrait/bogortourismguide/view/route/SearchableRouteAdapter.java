@@ -1,4 +1,4 @@
-package com.teknokrait.bogortourismguide.route;
+package com.teknokrait.bogortourismguide.view.route;
 
 import android.content.Context;
 import android.view.LayoutInflater;

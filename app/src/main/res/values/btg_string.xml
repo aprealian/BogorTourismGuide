@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="api_path_favorit">http://mydummyproject.hol.es/get/wisata/rating/10</string>
-    <!--<string name="api_path_favorit">http://192.168.43.232/btg/favorit.php</string>-->
+    <string name="url_domain">http://mydummyproject.hol.es</string>
+    <string name="api_path_favorit">/get/wisata/rating/10</string>
 </resources>

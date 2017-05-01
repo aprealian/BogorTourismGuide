@@ -1,10 +1,9 @@
-package com.teknokrait.bogortourismguide.route;
+package com.teknokrait.bogortourismguide.view.route;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,13 +13,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.teknokrait.bogortourismguide.MainActivity;
 import com.teknokrait.bogortourismguide.R;
 import com.teknokrait.bogortourismguide.data.Route;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SelectRouteActivity extends AppCompatActivity {

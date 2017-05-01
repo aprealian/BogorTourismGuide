@@ -1,9 +1,8 @@
-package com.teknokrait.bogortourismguide.route;
+package com.teknokrait.bogortourismguide.view.route;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 
 import com.teknokrait.bogortourismguide.R;
 import com.teknokrait.bogortourismguide.data.Route;
-import com.teknokrait.bogortourismguide.home.HomeFragment;
 
 import butterknife.ButterKnife;
 

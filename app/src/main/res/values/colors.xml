@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#22B877</color>
-    <color name="colorPrimaryDark">#1FB474</color>
+    <color name="colorPrimary">#00A699</color>
+    <color name="colorPrimaryDark">#00A699</color>
     <color name="colorAccent">#FF4081</color>
 
     <item name="textColorPrimary" type="color">@android:color/white</item>
@@ -15,6 +15,7 @@
     <item name="blue" type="color">#2196F3</item>
     <item name="yellow" type="color">#FFEB3B</item>>
     <item name="grey" type="color">#9E9E9E</item>
+    <color name="grey_2">#bbbec0</color>
     <item name="bluegrey" type="color">#607D8B</item>
     <item name="amber" type="color">#FFC107</item>
     <item name="teal" type="color">#009688</item>#009688

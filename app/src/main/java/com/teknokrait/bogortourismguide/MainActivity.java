@@ -1,56 +1,83 @@
 package com.teknokrait.bogortourismguide;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.teknokrait.bogortourismguide.home.HomeFragment;
-import com.teknokrait.bogortourismguide.tourism.TourismFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.teknokrait.bogortourismguide.view.dev.DeactivatedViewPager;
+import com.teknokrait.bogortourismguide.view.home.HomeFragment;
+import com.teknokrait.bogortourismguide.view.route.RouteFragment;
+import com.teknokrait.bogortourismguide.view.home.CategoryFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final DeactivatedViewPager viewPager = (DeactivatedViewPager) findViewById(R.id.viewpager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(3);
-        setupViewPager(viewPager);
+        //Add tabs icon with setIcon() or simple text with .setText()
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_home));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_restaurant));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_shuttle));
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
+        //Add fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "HOME");
-        adapter.addFragment(new TourismFragment(), "TOURISM");
-        adapter.addFragment(new TourismFragment(), "ROUTE");
+        adapter.addFragment(new CategoryFragment(), "TOURISM");
+        adapter.addFragment(new RouteFragment(), "ROUTE");
+
+
+        //Setting adapter
         viewPager.setAdapter(adapter);
+        viewPager.setPagingEnabled(false);
+        //disable swiping
+        //viewPager.beginFakeDrag();
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        //tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab)
+            {
+
+                viewPager.setCurrentItem(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab)
+            {
+
+            }
+        });
+
+
     }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -81,43 +108,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-
-            /*Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            */
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
 

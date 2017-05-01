@@ -1,4 +1,4 @@
-package com.teknokrait.bogortourismguide.dev;
+package com.teknokrait.bogortourismguide.view.dev;
 
 import android.view.View;
 

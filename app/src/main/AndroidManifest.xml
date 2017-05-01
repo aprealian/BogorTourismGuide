@@ -15,15 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainTabIconActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name=".MainActivity" />
-        <activity android:label="@string/page_route_depart" android:name=".route.SelectRouteActivity"></activity>
+        <activity android:label="@string/page_route_depart" android:name=".view.route.SelectRouteActivity"></activity>
     </application>
 
 </manifest>
