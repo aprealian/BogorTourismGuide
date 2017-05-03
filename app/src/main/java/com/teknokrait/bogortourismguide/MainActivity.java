@@ -1,5 +1,6 @@
 package com.teknokrait.bogortourismguide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,16 +8,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.teknokrait.bogortourismguide.data.Promo;
+import com.teknokrait.bogortourismguide.data.Wisata;
+import com.teknokrait.bogortourismguide.view.wisata.CategoryActivity;
 import com.teknokrait.bogortourismguide.view.dev.DeactivatedViewPager;
 import com.teknokrait.bogortourismguide.view.home.HomeFragment;
 import com.teknokrait.bogortourismguide.view.route.RouteFragment;
 import com.teknokrait.bogortourismguide.view.home.CategoryFragment;
+import com.teknokrait.bogortourismguide.view.wisata.DetailWisataActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener, CategoryFragment.OnFragmentInteractionListener {
 
     private Toolbar toolbar;
 
@@ -42,15 +48,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new CategoryFragment(), "TOURISM");
         adapter.addFragment(new RouteFragment(), "ROUTE");
 
-
         //Setting adapter
         viewPager.setAdapter(adapter);
         viewPager.setPagingEnabled(false);
-        //disable swiping
-        //viewPager.beginFakeDrag();
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        //tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
@@ -107,9 +109,32 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
 
+    }
+
+
+    public void onClickCategory(String string){
+
+        Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+        intent.putExtra("category", string);
+        startActivity(intent);
 
     }
 
 
+    @Override
+    public void onWisataSelected(Wisata wisata) {
+
+        Toast.makeText(this, wisata.toString(), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(MainActivity.this, DetailWisataActivity.class);
+        intent.putExtra("wisata", wisata.toString());
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onPromoSelected(Promo promo) {
+
+    }
 
 }

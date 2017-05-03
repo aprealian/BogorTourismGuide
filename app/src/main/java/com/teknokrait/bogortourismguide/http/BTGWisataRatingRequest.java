@@ -27,7 +27,6 @@ public class BTGWisataRatingRequest extends BTGBasicRequest {
 
     }
 
-
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);

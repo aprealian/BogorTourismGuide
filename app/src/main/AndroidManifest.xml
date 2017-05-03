@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/page_route_depart" android:name=".view.route.SelectRouteActivity"></activity>
+        <activity
+            android:name=".view.route.SelectRouteActivity"
+            android:label="@string/page_route_depart" />
+        <activity android:name=".view.wisata.CategoryActivity" />
+        <activity android:name=".view.wisata.DetailWisataActivity"></activity>
     </application>
 
 </manifest>

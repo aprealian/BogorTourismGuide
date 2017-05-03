@@ -13,6 +13,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -21,6 +23,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -47,6 +50,28 @@ public class Helper {
         int padding = context.getResources().getDimensionPixelSize(paddingRes);
         view.setPadding(padding, padding, padding, padding);
     }
+
+
+    /** CHECK WHETHER INTERNET CONNECTION IS AVAILABLE OR NOT */
+    public static boolean checkConnection(Context context) {
+        final ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
+
+        if (activeNetworkInfo != null) { // connected to the internet
+            Toast.makeText(context, activeNetworkInfo.getTypeName(), Toast.LENGTH_SHORT).show();
+
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                // connected to wifi
+                return true;
+            } else if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                // connected to the mobile provider's data plan
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap

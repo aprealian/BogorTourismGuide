@@ -1,5 +1,6 @@
 package com.teknokrait.bogortourismguide.view.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -26,6 +27,9 @@ public class CategoryFragment extends Fragment {
 
     private List<Category> menuList;
     private CategoryAdapter categoryAdapter;
+    private OnFragmentInteractionListener mListener;
+
+
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -35,6 +39,7 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initMenuData();
     }
 
     @Override
@@ -44,25 +49,17 @@ public class CategoryFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_category, container, false);
         ButterKnife.inject(getActivity());
 
-        initMenuData();
-
-
         categoryAdapter = new CategoryAdapter(getContext(), menuList,  new RecyclerViewOnItemClickListener() {
             @Override
             public void onClick(View v, int position) {
-                Toast.makeText(getContext(), "hello", Toast.LENGTH_SHORT).show();
+                mListener.onClickCategory(categoryAdapter.getItem(position).toString());
             }
         });
 
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_list);
         recyclerView.setAdapter(categoryAdapter);
-        //VERTICAL
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        //HORIZONTAL
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), 1));
-
-
 
         return v;
     }
@@ -78,6 +75,29 @@ public class CategoryFragment extends Fragment {
         menuList.add(new Category("Mosque", "mosque", "ic_menu_mosque", ""));
 
     }
+
+
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnServiceFragmentInteractionListener");
+        }
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onClickCategory(String string);
+    }
+
 
 
 }

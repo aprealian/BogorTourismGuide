@@ -22,11 +22,15 @@ import android.widget.Toast;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 import com.teknokrait.bogortourismguide.R;
+import com.teknokrait.bogortourismguide.data.Promo;
+import com.teknokrait.bogortourismguide.data.Wisata;
 import com.teknokrait.bogortourismguide.data.WisataList;
 import com.teknokrait.bogortourismguide.http.BTGWisataRatingRequest;
 import com.teknokrait.bogortourismguide.view.dev.RecyclerViewOnItemClickListener;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 
@@ -37,9 +41,9 @@ import okhttp3.OkHttpClient;
 public class HomeFragment extends Fragment {
 
     private PopularAdapter popularAdapter;
-    private OkHttpClient mClient;
     private WisataList wisataList;
     private CarouselView carouselView;
+    private OnFragmentInteractionListener mListener;
     int[] sampleImages = {R.drawable.promo1, R.drawable.promo2, R.drawable.promo3};
 
     public HomeFragment() {
@@ -49,8 +53,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mClient = new OkHttpClient();
     }
 
     @Override
@@ -66,19 +68,9 @@ public class HomeFragment extends Fragment {
 
         wisataList = new WisataList();
 
-        popularAdapter = new PopularAdapter(getContext(), new RecyclerViewOnItemClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-                Toast.makeText(getContext(), "hello", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_list);
         recyclerView.setAdapter(popularAdapter);
-        //VERTICAL
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        //HORIZONTAL
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), 1));
 
         //image slider
@@ -88,6 +80,13 @@ public class HomeFragment extends Fragment {
 
         //getting data
         new showListData(getContext(), getString(R.string.api_path_favorit)).execute();
+
+        popularAdapter = new PopularAdapter(getContext(), new RecyclerViewOnItemClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                mListener.onWisataSelected(popularAdapter.getItem(position));
+            }
+        });
 
         return v;
     }
@@ -110,13 +109,11 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            String json = getJson();
-
-            if (!json.isEmpty()) {
+            if (!getJson().isEmpty()) {
 
                 JSONArray array = null;
                 try {
-                    array = new JSONArray(json);
+                    array = new JSONArray(getJson());
                     wisataList.parse(array);
 
                     if(wisataList.getList() != null && !wisataList.getList().isEmpty()) {
@@ -136,6 +133,13 @@ public class HomeFragment extends Fragment {
         }
 
     }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onWisataSelected(Wisata wisata);
+        void onPromoSelected(Promo promo);
+    }
+
 
 
 }
