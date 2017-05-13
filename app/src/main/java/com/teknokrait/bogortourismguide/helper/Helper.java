@@ -42,10 +42,6 @@ import java.util.Locale;
 
 public class Helper {
 
-    public static final String GK_PUSH_NOTIFICATION_RECOMMENDATION_ARGS = "gk_push_notification_recommendation_args";
-    public static final String GK_SOCMED_TYPE_FACEBOOK = "facebook";
-    public static final String GK_SOCMED_TYPE_GOOGLE = "google";
-
     public static final void setFixPadding(Context context, View view, int paddingRes) {
         int padding = context.getResources().getDimensionPixelSize(paddingRes);
         view.setPadding(padding, padding, padding, padding);
@@ -59,7 +55,7 @@ public class Helper {
         NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
 
         if (activeNetworkInfo != null) { // connected to the internet
-            Toast.makeText(context, activeNetworkInfo.getTypeName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, activeNetworkInfo.getTypeName(), Toast.LENGTH_SHORT).show();
 
             if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
                 // connected to wifi

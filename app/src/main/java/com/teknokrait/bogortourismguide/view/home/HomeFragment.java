@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
@@ -32,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import okhttp3.OkHttpClient;
 
 /**
@@ -45,6 +47,9 @@ public class HomeFragment extends Fragment {
     private CarouselView carouselView;
     private OnFragmentInteractionListener mListener;
     int[] sampleImages = {R.drawable.promo1, R.drawable.promo2, R.drawable.promo3};
+
+    @InjectView(R.id.progressBar)
+    ProgressBar progressBar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,13 +65,21 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.inject(getActivity(), v);
+        ButterKnife.inject(this, v);
 
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         toolbar.setTitle("Favorit");
         toolbar.setTitleTextColor(Color.WHITE);
 
         wisataList = new WisataList();
+
+        popularAdapter = new PopularAdapter(getContext(), new RecyclerViewOnItemClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                mListener.onWisataSelected(popularAdapter.getItem(position).toString());
+                //Toast.makeText(getActivity(), String.valueOf(position)+" "+popularAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_list);
         recyclerView.setAdapter(popularAdapter);
@@ -81,13 +94,6 @@ public class HomeFragment extends Fragment {
         //getting data
         new showListData(getContext(), getString(R.string.api_path_favorit)).execute();
 
-        popularAdapter = new PopularAdapter(getContext(), new RecyclerViewOnItemClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-                mListener.onWisataSelected(popularAdapter.getItem(position));
-            }
-        });
-
         return v;
     }
 
@@ -99,6 +105,23 @@ public class HomeFragment extends Fragment {
     };
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     private class showListData extends BTGWisataRatingRequest{
 
         public showListData(Context context, String apiPath) {
@@ -106,8 +129,16 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            progressBar.setVisibility(View.GONE);
 
             if (!getJson().isEmpty()) {
 
@@ -136,7 +167,7 @@ public class HomeFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onWisataSelected(Wisata wisata);
+        void onWisataSelected(String wisata);
         void onPromoSelected(Promo promo);
     }
 

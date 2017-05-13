@@ -1,4 +1,4 @@
-package com.teknokrait.bogortourismguide.view.home;
+package com.teknokrait.bogortourismguide.view.wisata;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,8 +19,8 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.teknokrait.bogortourismguide.R;
 import com.teknokrait.bogortourismguide.data.Wisata;
-import com.teknokrait.bogortourismguide.view.dev.RecyclerViewOnItemClickListener;
 import com.teknokrait.bogortourismguide.helper.Helper;
+import com.teknokrait.bogortourismguide.view.dev.RecyclerViewOnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,27 +29,27 @@ import java.util.List;
  * Created by sirius on 3/12/2017.
  */
 
-public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularViewHolder> {
+public class WisataByCategoryAdapter extends RecyclerView.Adapter<WisataByCategoryAdapter.PopularViewHolder> {
 
     private Context context;
     private List<Wisata> wisataList;
     private int selectedPosition;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
 
-    public PopularAdapter(Context context, @NonNull RecyclerViewOnItemClickListener
+    public WisataByCategoryAdapter(Context context, @NonNull RecyclerViewOnItemClickListener
                                           recyclerViewOnItemClickListener) {
         this.context = context;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
     }
 
     @Override
-    public PopularAdapter.PopularViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public WisataByCategoryAdapter.PopularViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_popular, parent, false);
-        return new PopularAdapter.PopularViewHolder(row);
+        return new WisataByCategoryAdapter.PopularViewHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(PopularAdapter.PopularViewHolder holder, int position) {
+    public void onBindViewHolder(WisataByCategoryAdapter.PopularViewHolder holder, int position) {
         Wisata wisata = wisataList.get(position);
         holder.getNamaTextView().setText(wisata.getNama());
         holder.getKategoriTextView().setText(wisata.getKategori());
@@ -68,7 +68,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         return selectedPosition;
     }
 
-    public PopularAdapter(Context context) {
+    public WisataByCategoryAdapter(Context context) {
         this.context = context;
     }
 

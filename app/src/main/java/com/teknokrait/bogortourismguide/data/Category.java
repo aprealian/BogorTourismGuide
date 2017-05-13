@@ -11,15 +11,18 @@ import org.json.JSONObject;
 
 public class Category {
 
-    private static String KEY_TITLE = "";
-    private static String KEY_IMAGE = "";
-    private static String KEY_TAG = "";
-    private static String KEY_BANNER = "";
+    private static String KEY_TITLE = "title";
+    private static String KEY_IMAGE = "image";
+    private static String KEY_TAG = "tag";
+    private static String KEY_BANNER = "banner";
 
     private String title;
     private String image;
     private String tag;
     private String banner;
+
+    public Category(){
+    }
 
     public Category(String title, String tag, String image, String banner){
         this.title = title;

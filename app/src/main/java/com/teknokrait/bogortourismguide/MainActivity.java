@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.teknokrait.bogortourismguide.data.Promo;
 import com.teknokrait.bogortourismguide.data.Wisata;
+import com.teknokrait.bogortourismguide.helper.BTGConstant;
 import com.teknokrait.bogortourismguide.view.wisata.CategoryActivity;
 import com.teknokrait.bogortourismguide.view.dev.DeactivatedViewPager;
 import com.teknokrait.bogortourismguide.view.home.HomeFragment;
@@ -114,20 +115,22 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
 
     public void onClickCategory(String string){
 
+        //Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT).show();
+
         Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
-        intent.putExtra("category", string);
+        intent.putExtra(BTGConstant.CATEGORY, string);
         startActivity(intent);
 
     }
 
 
     @Override
-    public void onWisataSelected(Wisata wisata) {
+    public void onWisataSelected(String wisata) {
 
-        Toast.makeText(this, wisata.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, wisata.toString(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(MainActivity.this, DetailWisataActivity.class);
-        intent.putExtra("wisata", wisata.toString());
+        intent.putExtra(BTGConstant.WISATA, wisata);
         startActivity(intent);
 
     }

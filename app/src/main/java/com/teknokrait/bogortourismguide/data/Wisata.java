@@ -174,8 +174,7 @@ public class Wisata implements Parseable {
                 if (array != null && array.length() > 0) {
                     photos = new ArrayList<>();
                     for (int i=0; i< array.length(); i++){
-                        JSONObject o = array.getJSONObject(i);
-                        photos.add(o.toString());
+                        photos.add(array.getString(i));
                     }
                     setPhotos(photos);
                 }
@@ -242,8 +241,7 @@ public class Wisata implements Parseable {
             if (getPhotos() != null && !getPhotos().isEmpty()) {
                 JSONArray array = new JSONArray();
                 for (String a : getPhotos()) {
-                    JSONObject o = new JSONObject(a.toString());
-                    array.put(o);
+                    array.put(a);
                 }
                 obj.put(KEY_PHOTOS, array);
             } else  {

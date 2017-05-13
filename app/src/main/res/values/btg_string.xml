@@ -2,4 +2,8 @@
 <resources>
     <string name="url_domain">http://mydummyproject.hol.es</string>
     <string name="api_path_favorit">/get/wisata/rating/10</string>
+    <string name="api_path_search">/get/wisata/s/</string>
+
+
+    <string name="google_public_api_key">AIzaSyCugSu-MZGuE6cP_AS3SIet8MWrLkWFV5Q</string>
 </resources>

@@ -52,6 +52,7 @@ public class CategoryFragment extends Fragment {
         categoryAdapter = new CategoryAdapter(getContext(), menuList,  new RecyclerViewOnItemClickListener() {
             @Override
             public void onClick(View v, int position) {
+                //Toast.makeText(getContext(), categoryAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
                 mListener.onClickCategory(categoryAdapter.getItem(position).toString());
             }
         });
@@ -67,8 +68,8 @@ public class CategoryFragment extends Fragment {
 
     private void initMenuData() {
         menuList = new ArrayList<Category>();
-        menuList.add(new Category("Food", "food", "ic_menu_food", ""));
-        menuList.add(new Category("Cafe", "cafe", "ic_menu_cafe", ""));
+        menuList.add(new Category("Food", "food", "ic_menu_food", "tag"));
+        menuList.add(new Category("Cafe", "cafe", "ic_menu_cafe", "tag"));
         menuList.add(new Category("Market", "market", "ic_menu_market", ""));
         menuList.add(new Category("Museum", "museum", "ic_menu_museum", ""));
         menuList.add(new Category("Hotel", "hotel", "ic_menu_hotel", ""));

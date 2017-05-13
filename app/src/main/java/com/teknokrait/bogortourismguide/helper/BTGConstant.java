@@ -6,7 +6,8 @@ package com.teknokrait.bogortourismguide.helper;
 
 public interface BTGConstant {
 
-    String SERVICE = "service";
+    String WISATA = "wisata";
+    String CATEGORY = "category";
 
 
 }
