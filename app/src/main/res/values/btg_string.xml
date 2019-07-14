@@ -5,5 +5,5 @@
     <string name="api_path_search">/get/wisata/s/</string>
 
 
-    <string name="google_public_api_key">AIzaSyCugSu-MZGuE6cP_AS3SIet8MWrLkWFV5Q</string>
+    <string name="google_public_api_key"></string>
 </resources>
